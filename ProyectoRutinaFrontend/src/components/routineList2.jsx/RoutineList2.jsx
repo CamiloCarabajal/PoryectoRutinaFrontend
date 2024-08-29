@@ -44,9 +44,18 @@ const RoutineList2 = () => {
                 <strong>Duración:</strong> {routine.duration}
               </p>
               <ul>
-                {routine.routineExercises.map((exercise) => (
-                  <li key={exercise.exerciseId}>
-                    Ejercicio ID: {exercise.exerciseId}
+                {routine.exercises.map((exercise) => (
+                  <li key={exercise.id}>
+                    <p>
+                      <strong>Ejercicio:</strong> {exercise.name}
+                    </p>
+                    <p>
+                      <strong>Categoría:</strong> {exercise.category}
+                    </p>
+                    <p>
+                      <strong>Usa máquina:</strong>{" "}
+                      {exercise.useMachine ? "Sí" : "No"}
+                    </p>
                   </li>
                 ))}
               </ul>
