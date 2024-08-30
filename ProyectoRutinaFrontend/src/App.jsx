@@ -1,37 +1,44 @@
 import React, { useState } from "react";
-import RoutineForm from "./components/routineForm/RoutineForm";
-import RoutineList from "./components/routineList/RoutineList";
 import RoutineList2 from "./components/routineList2.jsx/RoutineList2";
 import ExerciseList from "./components/exerciseList/ExerciseList";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AddRoutine from "./components/addRoutine/AddRoutine";
 
 const App = () => {
-  const [routines, setRoutines] = useState([]);
-  const [selectedRoutine, setSelectedRoutine] = useState(null);
+  const [showRoutines, setShowRoutines] = useState(false);
+  const [showExercises, setShowExercises] = useState(false);
+  const [ShowAddRoutine, setShowAddRoutine] = useState(false);
 
-  const addRoutine = (routine) => {
-    setRoutines([...routines, routine]);
+  const toggleRoutines = () => {
+    setShowRoutines(!showRoutines);
   };
-  const updateRoutine = (updateRoutine) => {
-    setRoutines(
-      routines.map((routine) =>
-        routine.id === updateRoutine.id ? updateRoutine.id : routine
-      )
-    );
+
+  const toggleExercises = () => {
+    setShowExercises(!showExercises);
   };
-  const deleteRoutine = (routineId) => {
-    setRoutines(routines.filter((routine) => routine.id !== routineId));
+
+  const toggleAddRoutine = () => {
+    setShowAddRoutine(!ShowAddRoutine);
   };
+
   return (
     <div className="container">
-      <h1> GYM : Rutinas de Entrenamiento</h1>
-      <RoutineList
-        routines={routines}
-        onEdit={setSelectedRoutine}
-        onDelete={updateRoutine}
-      />
-      <RoutineList2 />
-      <ExerciseList />
+      <h1>GYM : Rutinas de Entrenamiento</h1>
+
+      <button className="btn btn-primary my-3" onClick={toggleAddRoutine}>
+        {ShowAddRoutine ? "Ocultar Agregar Rutinas" : "Agregar Rutinas"}
+      </button>
+      {ShowAddRoutine && <AddRoutine />}
+
+      <button className="btn btn-primary my-3" onClick={toggleRoutines}>
+        {showRoutines ? "Ocultar Rutinas" : "Mostrar Rutinas"}
+      </button>
+      {showRoutines && <RoutineList2 />}
+
+      <button className="btn btn-secondary my-3" onClick={toggleExercises}>
+        {showExercises ? "Ocultar Ejercicios" : "Mostrar Ejercicios"}
+      </button>
+      {showExercises && <ExerciseList />}
     </div>
   );
 };
